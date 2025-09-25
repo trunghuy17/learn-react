@@ -8,6 +8,8 @@ import PropsDrillingLiftingStateUp from "./components/PropsDrillingLiftingStateU
 import Form from "./components/Form";
 import StateHooks from "./components/StateHooks";
 import EffectHooks from "./components/EffectHooks";
+import ContextApi from "./components/ContextApi";
+import { TodoProvider } from "./contexts/TodoContext";
 
 // function ProductItem({ name, className, ...restProps }: any) {
 //   return (
@@ -19,9 +21,8 @@ import EffectHooks from "./components/EffectHooks";
 // }
 
 function App() {
-
   return (
-    <div style={{padding:'15px'}}>
+    <div style={{ padding: "15px" }}>
       {/* {/* <Welcome
         title="Hello React"
         desc="This is a description"
@@ -35,18 +36,23 @@ function App() {
       <br />
       <Components />
       <ConditionalRendering />
-      <br/>
-      <ListKey/>
-      <br/>
-      <CSS/>
-      <br/>
-      <PropsDrillingLiftingStateUp/>
-      <br/>
-      <Form/>
-      <br/>
-      <StateHooks/>
-      <br/>
-      <EffectHooks/>
+      <br />
+      <ListKey />
+      <br />
+      <CSS />
+      <br />
+      <PropsDrillingLiftingStateUp />
+      <br />
+      <Form />
+      <br />
+      <StateHooks />
+      <br />
+      <EffectHooks />
+      <br />
+
+      <TodoProvider>
+        <ContextApi />
+      </TodoProvider>
     </div>
   );
 }
