@@ -10,6 +10,7 @@ import StateHooks from "./components/StateHooks";
 import EffectHooks from "./components/EffectHooks";
 import ContextApi from "./components/ContextApi";
 import { TodoProvider } from "./contexts/TodoContext";
+import RefHooks from "./components/RefHooks";
 
 // function ProductItem({ name, className, ...restProps }: any) {
 //   return (
@@ -53,6 +54,9 @@ function App() {
       <TodoProvider>
         <ContextApi />
       </TodoProvider>
+
+      <br />
+      <RefHooks />
     </div>
   );
 }

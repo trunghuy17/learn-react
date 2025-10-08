@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useState } from "react";
 
-const TodoContext = createContext({});
+const TodoContext = createContext<any>({});
 
 export const TodoProvider = ({ children }: React.PropsWithChildren) => {
   const [todos, setTodos] = useState<any>([]);
