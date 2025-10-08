@@ -1,7 +1,5 @@
 @import "tailwindcss";
 
-
-
 body {
   padding: 10px;
 }
@@ -33,7 +31,6 @@ body {
   background-color: #000;
 }
 
-
 .boxAnimation {
   width: 150px;
   height: 150px;
@@ -49,10 +46,11 @@ body {
 .avatarUser {
   width: 200px;
   height: 100px;
-  background: url('../assets/avatar.png') no-repeat;
+  background: url("../assets/avatar.png") no-repeat;
 }
 
-h1, h2 {
+h1,
+h2 {
   font-weight: bold;
   font-size: 24px;
 }
@@ -60,6 +58,8 @@ h1, h2 {
 button {
   border: 1px solid #000;
   background-color: rgb(220, 216, 216);
+  border-radius: 5px;
+  padding: 5px;
 }
 
 input {
