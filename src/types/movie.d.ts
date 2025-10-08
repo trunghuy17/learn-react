@@ -1,5 +1,7 @@
 export interface IMovie {
-  title: string;
+  movies : {
+    title:string,
+    age:number
+  }
   name: string;
-  year: number;
 }
