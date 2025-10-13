@@ -19,6 +19,12 @@ useMemo
 - useMemo() is a built-in React hook that accepts 2 arguments — a function compute that computes a result and the depedencies array.
 */
 
+interface ICart {
+  title: string;
+  price: number;
+  quality: number;
+}
+
 function PerformanceHook() {
   const [count, setCount] = React.useState(1);
   const [timestamp, setTimestamp] = React.useState(Date.now());
@@ -26,7 +32,7 @@ function PerformanceHook() {
     title: "tony",
     age: 19,
   });
-  const [cart, setCart] = React.useState([
+  const [cart, setCart] = React.useState<ICart[]>([
     { title: "phone", price: 1000, quality: 1 },
     { title: "samsung", price: 2000, quality: 2 },
     { title: "laptop", price: 1500, quality: 1 },
@@ -34,13 +40,24 @@ function PerformanceHook() {
 
   // re-run calculate every component render
   const totalPrice = useMemo(() => {
+    console.log("🧮 Recalculate totalPrice");
     const res = cart.reduce((acc, currValue) => {
       acc += currValue.price * currValue.quality;
       return acc;
     }, 0);
-    console.log("totalPrice", res);
     return res;
   }, [cart]);
+
+  function addCart() {
+    setCart((prev) => [
+      ...prev,
+      {
+        title: "PC",
+        price: 3000,
+        quality: 2,
+      },
+    ]);
+  }
 
   function updateMovieTitle() {
     // setMovies(prevState => ({
@@ -56,29 +73,32 @@ function PerformanceHook() {
     });
   }
 
-  
-//   const updateMovieAge = () => {
-//     setMovies((prev) => ({
-//       ...prev,
-//       age: Date.now(),
-//     }));
-//   };
+  //   const updateMovieAge = () => {
+  //     setMovies((prev) => ({
+  //       ...prev,
+  //       age: Date.now(),
+  //     }));
+  //   };
 
-// memory A => memory A
-const updateMovieAge = useCallback(() => {
-    setMovies(prev => ({
-        ...prev,
-        age: prev.age + Date.now()
-    }))
-},[count])
+  // memory A => memory A
+  const updateMovieAge = useCallback(() => {
+    setMovies((prevState) => ({
+      ...prevState,
+      age: prevState.age + Date.now(),
+    }));
+  }, []);
 
   console.log("PerformanceHook Render");
+  console.log("Cart: ", cart);
   return (
     <div>
       <h1>PerformanceHook</h1>
       Count: {count} <br />
       Timestap: {timestamp} <br />
       Total Price: {totalPrice} <br />
+      <button type="button" onClick={addCart}>
+        Add Cart
+      </button>
       <button
         type="button"
         onClick={() => setCount((prevState) => prevState + 1)}

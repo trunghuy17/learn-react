@@ -1,3 +1,5 @@
+import { useSmallScreen } from "./hooks/useSmallScreen";
+
 interface Props extends React.HTMLAttributes<HTMLDivElement> {
   title: string;
   desc: string;
@@ -12,10 +14,13 @@ function Welcome({
   component2,
   ...rest
 }: Props) {
+
+  const {isSmallScreen} = useSmallScreen();
   return (
     <div {...rest}>
       <h1>{title}</h1>
       <p>{desc}</p>
+      <p>Window is small screen : {isSmallScreen}</p>
       <p>
         Component1:
         <Component1 />{" "}

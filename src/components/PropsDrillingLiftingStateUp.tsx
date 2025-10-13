@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Todos from "./PropsDrilling/Todos";
+import { useSmallScreen } from "./hooks/useSmallScreen";
 
 export interface ITodoItem {
   id: number;
@@ -7,6 +8,7 @@ export interface ITodoItem {
 }
 
 function PropsDrillingLiftingStateUp() {
+  const {isSmallScreen} = useSmallScreen();
   const [todos, setTodos] = useState<ITodoItem[]>([
     {
       id: 1,
@@ -18,6 +20,8 @@ function PropsDrillingLiftingStateUp() {
     },
   ]);
 
+
+
   function deleteItem(todoId: number) {
     console.log("deleteItem", todoId);
 
@@ -28,6 +32,9 @@ function PropsDrillingLiftingStateUp() {
   return (
     <div>
       <h1>Props Drilling Lifting state Up</h1>
+      <div>
+        Window is small screen: {isSmallScreen ? 'Yes' : 'No'}
+      </div>
       <div>
         <h3>Todo list</h3>
         <Todos todos={todos} deleteItem={deleteItem} />
