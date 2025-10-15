@@ -12,6 +12,7 @@ import ContextApi from "./components/ContextApi";
 import { TodoProvider } from "./contexts/TodoContext";
 import RefHooks from "./components/RefHooks";
 import PerformanceHook from "./components/PerformanceHook";
+import CustomHook from "./components/CustomHook";
 
 // function ProductItem({ name, className, ...restProps }: any) {
 //   return (
@@ -60,6 +61,8 @@ function App() {
       <RefHooks />
       <br />
       <PerformanceHook/>
+      <br />
+      <CustomHook/>
     </div>
   );
 }

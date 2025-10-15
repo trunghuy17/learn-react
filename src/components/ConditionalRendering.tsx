@@ -1,6 +1,6 @@
-import React, { useState } from "react";
-import LogInButton from "./LogInButton";
-import LogOutButton from "./LogOutButton";
+import { useState } from "react";
+import LogInButton from "./LoginButton";
+import LogOutButton from "./LogoutButton";
 
 /*
 1. &&

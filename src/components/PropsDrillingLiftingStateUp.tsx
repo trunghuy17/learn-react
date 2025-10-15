@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Todos from "./PropsDrilling/Todos";
 import { useSmallScreen } from "./hooks/useSmallScreen";
 
