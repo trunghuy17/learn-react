@@ -1,68 +1,75 @@
 import "./App.css";
-import State from "./components/State";
-import Components from "./components/Components";
-import ConditionalRendering from "./components/ConditionalRendering";
-import ListKey from "./components/ListKey";
-import CSS from "./components/CSS";
-import PropsDrillingLiftingStateUp from "./components/PropsDrillingLiftingStateUp";
-import Form from "./components/Form";
-import StateHooks from "./components/StateHooks";
-import EffectHooks from "./components/EffectHooks";
 import ContextApi from "./components/ContextApi";
 import { TodoProvider } from "./contexts/TodoContext";
 import RefHooks from "./components/RefHooks";
 import PerformanceHook from "./components/PerformanceHook";
 import CustomHook from "./components/CustomHook";
-
-// function ProductItem({ name, className, ...restProps }: any) {
-//   return (
-//     <div className={className}>
-//       Product Item: {name} <br />
-//       <button {...restProps}>Delete</button>
-//     </div>
-//   );
-// }
+import { Route, Routes, useNavigate } from "react-router-dom";
+import HomePage from "./components/pages/HomePage";
+import Header from "./components/layout/Header";
+import Footer from "./components/layout/Footer";
+import Navbar from "./components/layout/Navbar";
+import JSX from "./components/JSX";
+import { useEffect } from "react";
+import { usePageTracking } from "./components/hooks/usePageTracking";
+import TodoDetail from "./components/leaderboard/TodoDetail";
+import AlbumDetail from "./components/leaderboard/AlbumDetail";
+import PostBoardDetail from "./components/leaderboard/PostBoardDetail";
 
 function App() {
+  usePageTracking();
+  const navigate = useNavigate();
+
+  console.log("App location:", usePageTracking);
+
+  useEffect(() => {
+    //call google analyztic
+    console.log("App google analytic:", location);
+  }, [location]);
+
+  function gotoHome() {
+    navigate("/");
+  }
   return (
-    <div style={{ padding: "15px" }}>
-      {/* {/* <Welcome
-        title="Hello React"
-        desc="This is a description"
-        className="custom-welcome"
-        style={{ color: "blue" }}
-        // data-like-bird="a"
-        // component1={ProductItem}
-        // component2={<ProductItem />}
-      /> */}
-      <State />
-      <br />
-      <Components />
-      <ConditionalRendering />
-      <br />
-      <ListKey />
-      <br />
-      <CSS />
-      <br />
-      <PropsDrillingLiftingStateUp />
-      <br />
-      <Form />
-      <br />
-      <StateHooks />
-      <br />
-      <EffectHooks />
-      <br />
+    <div className="min-h-dvh flex flex-col">
+      <Header />
+      <Navbar />
+      <button
+        type="button"
+        className="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+        onClick={gotoHome}
+      >
+        Navigate to home
+      </button>
 
-      <TodoProvider>
-        <ContextApi />
-      </TodoProvider>
+      <main className="flex-1 p-6 md:p-8 lg:p-10">
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/jsx" element={<JSX />} />
+          <Route path="/performancehook" element={<PerformanceHook />} />
+          <Route path="/leaderboard" element={<CustomHook />} />
+          <Route path="/leaderboard/todo/:todoId" element={<TodoDetail />} />
+          <Route
+            path="/leaderboard/albums/:albumId"
+            element={<AlbumDetail />}
+          />
+          <Route
+            path="/leaderboard/posts/:postId"
+            element={<PostBoardDetail />}
+          />
 
-      <br />
-      <RefHooks />
-      <br />
-      <PerformanceHook/>
-      <br />
-      <CustomHook/>
+          <Route path="/ref_hooks" element={<RefHooks />} />
+          <Route
+            path="/context_api"
+            element={
+              <TodoProvider>
+                <ContextApi />
+              </TodoProvider>
+            }
+          />
+        </Routes>
+      </main>
+      <Footer />
     </div>
   );
 }

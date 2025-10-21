@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
+type Post = {userId: number, id:number, title:string, body:string}
+
 function PostBoardDetail() {
-  const [postById, setPostById] = useState<any>(null);
-  const params = useParams();
-  const postId = params?.postId;
+  const {postId} = useParams<{postId:string}>();
+  const [postById, setPostById] = useState<Post | null>(null);
 
   useEffect(() => {
     if (!postId) return;

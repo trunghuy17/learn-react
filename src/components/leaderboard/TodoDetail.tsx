@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
+type Todo = { userId: number; id: number; title: string; complete: boolean };
+
 function TodoDetail() {
-  const [todoById, setTodoById] = useState<any>(null);
-  const params = useParams();
-  const todoId = params?.todoId;
+  const { todoId } = useParams<{ todoId: string }>();
+  const [todoById, setTodoById] = useState<Todo | null>(null);
 
   useEffect(() => {
     if (!todoId) return;
@@ -40,7 +41,7 @@ function TodoDetail() {
             <tr className="bg-white border-b  border-gray-200">
               <td className="px-6 py-4">{todoById?.userId}</td>
               <td className="px-6 py-4">{todoById?.title}</td>
-              <td className="px-6 py-4">{todoById?.completed ? "Yes" : "No"}</td>
+              <td className="px-6 py-4">{todoById?.complete ? "Yes" : "No"}</td>
             </tr>
           </tbody>
         </table>

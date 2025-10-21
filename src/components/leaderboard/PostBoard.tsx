@@ -1,7 +1,9 @@
+import { useNavigate } from "react-router-dom";
 import { useTable } from "../hooks/useTable";
 
 function PostBoard() {
-  const { dataSource, prevPage, nextPage, onChangeLimit, pagination } =
+  const navigate   = useNavigate();
+  const { dataSource, onChangeNextPage, onChangePrevPage, onChangeLimit, pagination } =
     useTable({
       path: "posts",
       page: 1,
@@ -20,6 +22,7 @@ function PostBoard() {
               <th scope="col" className="px-6 py-3">
                 Body
               </th>
+              <th>Action</th>
             </tr>
           </thead>
           <tbody>
@@ -32,6 +35,15 @@ function PostBoard() {
                   {post.title}
                 </th>
                 <td className="px-6 py-4">{post.body}</td>
+                <td>
+                  <button
+                    type="button"
+                    className="cursor-pointer"
+                    onClick={() => navigate(`posts/${post.id}`)}
+                  >
+                    Show Detail
+                  </button>
+                </td>
               </tr>
             ))}
           </tbody>
@@ -43,14 +55,14 @@ function PostBoard() {
           <div className="flex ">
             <button
               className="flex items-center justify-center px-3 h-8 text-sm font-medium text-white bg-gray-800 rounded-s hover:bg-gray-900 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-              onClick={prevPage}
+              onClick={onChangePrevPage}
             >
               Prev
             </button>
             <span style={{ marginTop: "4px" }}>{pagination.page}</span>
             <button
               className="flex items-center justify-center px-3 h-8 text-sm font-medium text-white bg-gray-800 border-0 border-s border-gray-700 rounded-e hover:bg-gray-900 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-              onClick={nextPage}
+              onClick={onChangeNextPage}
             >
               Next
             </button>

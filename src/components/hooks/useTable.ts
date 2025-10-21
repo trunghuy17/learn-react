@@ -1,16 +1,18 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 interface TableProps {
   path: string;
-  page?:number;
-  limit?:number
+  page?: number | undefined;
+  limit?: number | undefined;
 }
 
-export const useTable = ({ path }: TableProps) => {
+export const useTable = ({ path, page = 1, limit = 3 }: TableProps) => {
+  const navigate = useNavigate();
   const [dataSource, setDataSource] = useState<any[]>([]);
   const [pagination, setPagination] = useState({
-    page: 1,
-    limit: 3,
+    page,
+    limit,
   });
   useEffect(() => {
     async function fetchDataSource() {
@@ -27,30 +29,46 @@ export const useTable = ({ path }: TableProps) => {
     fetchDataSource();
   }, [pagination]);
 
-  function prevPage() {
-    setPagination((prev) => ({
-      ...prev,
-      page: pagination.page - 1,
-    }));
+  function onChangePrevPage() {
+    setPagination((prevState) => {
+      const newPage = prevState.page - 1;
+      navigate(`/leaderboard?page=${newPage}&limit=${prevState.limit}`, {
+        replace: true,
+      });
+      return {
+        ...prevState,
+        page: newPage,
+      };
+    });
   }
-  function nextPage() {
-    setPagination((prev) => ({
-      ...prev,
-      page: pagination.page + 1,
-    }));
-  }
-  function onChangeLimit(limit: number) {
-    setPagination((prev) => ({
-      ...prev,
-      page: 1,
-      limit,
-    }));
+  function onChangeNextPage() {
+    setPagination((prev) => {
+      const newPage = prev.page + 1;
+      navigate(`/leaderboard?page=${newPage}&limit=${prev.limit}`, {
+        replace: true,
+      });
+      return {
+        ...prev,
+        page: newPage,
+      };
+    });
   }
 
+  function onChangeLimit(limit: number) {
+    setPagination((prevState) => {
+      navigate(`/leaderboard?page=${prevState.page}&limit=${limit}`, {
+        replace: true,
+      });
+      return {
+        ...prevState,
+        limit,
+      };
+    });
+  }
   return {
     dataSource,
-    prevPage,
-    nextPage,
+    onChangePrevPage,
+    onChangeNextPage,
     onChangeLimit,
     pagination,
   };

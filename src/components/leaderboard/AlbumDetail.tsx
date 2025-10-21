@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
+type Album = { userId: number; id: number; title: string };
+
 function AlbumDetail() {
-  const [albumById, setAlbumById] = useState<any>(null);
-  const params = useParams();
-  const albumId = params?.albumId;
+  const [albumById, setAlbumById] = useState<Album | null>(null);
+  const { albumId } = useParams<{ albumId: string }>();
 
   useEffect(() => {
     if (!albumId) return;
