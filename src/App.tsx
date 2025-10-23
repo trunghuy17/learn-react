@@ -15,6 +15,12 @@ import { usePageTracking } from "./components/hooks/usePageTracking";
 import TodoDetail from "./components/leaderboard/TodoDetail";
 import AlbumDetail from "./components/leaderboard/AlbumDetail";
 import PostBoardDetail from "./components/leaderboard/PostBoardDetail";
+import User from "./components/User";
+import Profile from "./components/user/Profile";
+import PaymentMethod from "./components/user/PaymentMethod";
+import Login from "./components/Login";
+import AuthRoute from "./routes/AuthRoute";
+import PublicRoute from "./routes/PublicRoute";
 
 function App() {
   usePageTracking();
@@ -46,6 +52,14 @@ function App() {
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/jsx" element={<JSX />} />
+          <Route
+            path="/login"
+            element={
+              <PublicRoute>
+                <Login />
+              </PublicRoute>
+            }
+          />
           <Route path="/performancehook" element={<PerformanceHook />} />
           <Route path="/leaderboard" element={<CustomHook />} />
           <Route path="/leaderboard/todo/:todoId" element={<TodoDetail />} />
@@ -67,6 +81,18 @@ function App() {
               </TodoProvider>
             }
           />
+          <Route
+            path="/user"
+            element={
+              <AuthRoute>
+                <User />
+              </AuthRoute>
+            }
+          >
+            <Route index element={<div>Please choose tab</div>} />
+            <Route path="profile" element={<Profile />} />
+            <Route path="payment" element={<PaymentMethod />} />
+          </Route>
         </Routes>
       </main>
       <Footer />
